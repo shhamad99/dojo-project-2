@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  api:
+    build: ./backend
+    environment:
+      - CONNECTION_STRING=postgres://admen:admen@db/admen_db
+    depends_on:
+      - db
+    networks:
+      - network-private
+      - network-public
+
+  react-web:
+    build: ./frontend
+    environment:
+      - API_URL=http://api:3001/data
+    depends_on:
+      - api
+    ports:
+      - "80:3000"
+    networks:
+      - network-public
+
+  db:
+    image: postgres:11.2-alpine
+    environment:
+      POSTGRES_USER: admen
+      POSTGRES_PASSWORD: admen
+      POSTGRES_DB: admen_db
+    volumes:
+      - ./init_sql_scripts/:/docker-entrypoint-initdb.d
+      - ./init_sql_scripts_conf:/etc/postgresql.conf
+      - ./postgress_sql:/var/lip/postgresql
+    networks:
+      - network-private
+volumes:
+  init_sql_scripts:
+  init_sql_scripts_conf:
+  postgress_sql:
+networks:
+  network-public:
+    name: network-public
+    driver: bridge
+  network-private:
+    name: network-private
+    driver: bridge
+                 
