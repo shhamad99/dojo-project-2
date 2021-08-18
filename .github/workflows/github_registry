@@ -56,7 +56,7 @@ jobs:
           file: ./frontend/dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/new-project2:latest
+          tags: ghcr.io/${{ github.repository_owner }}/dojo-project:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
