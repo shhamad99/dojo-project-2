@@ -32,7 +32,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, project-hala!
+        run: echo Hello, project!
 
       # Building
       - name: Set up Docker Buildx
